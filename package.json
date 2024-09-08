@@ -1,0 +1,25 @@
+{
+  "name": "workout-planner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node  src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.2.0",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.6.1"
+  }
+}
