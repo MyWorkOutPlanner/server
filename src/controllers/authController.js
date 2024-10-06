@@ -1,5 +1,5 @@
 import UserModel from "../models/UserModel.js"
-import { createHash } from "../utils/hash.js"
+import { createHash, compareHash } from "../utils/hash.js"
 
 
 export const createUser = async (payload) => {
@@ -25,3 +25,39 @@ export const loginUser = async (payload) => {
         throw Error(error);
       }
 }
+
+export const getUserById = async (id) => {
+  const user = await UserModel.findById(id);
+  if (!user) throw new Error("User does not exist");
+  return {
+    id: user.id,
+    fullName: user.fullName,
+    avatar: user.avatar,
+    email: user.email,
+  };
+};
+
+export const updateUser = async (userId, payload) => {
+  try {
+    let data = await UserModel.findById(userId);
+
+    //editable column restriction
+    const editableColumn = [
+      "fullName",
+      "avatar",
+    ];
+
+    Object.keys(payload).forEach((key) => {
+      if (editableColumn.includes(key)) {
+        data[key] = payload[key];
+      }
+    });
+
+    const user = await UserModel.findOneAndUpdate({ email: data.email }, data);
+
+    return "updated";
+  } catch (error) {
+    console.log(error);
+    Error(error);
+  }
+};
